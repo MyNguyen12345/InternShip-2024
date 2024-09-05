@@ -1,0 +1,17 @@
+.div-button {
+    padding: 10px;
+}
+
+.button-style {
+    background-color: aqua;
+    border: 1px solid black;
+}
+
+.button-style:active {
+    background-color: rgb(128, 68, 0);
+}
+
+.div-fieldset {
+    margin: 10px;
+    padding: 10px;
+}

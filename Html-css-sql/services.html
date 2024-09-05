@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="Css/styles.css">
+    <link rel="stylesheet" href="Css/servies.css">
+
+</head>
+<body>
+    <div id="menu"></div>
+
+    <div class="container">
+        <div class="content"  id="content">
+         <iframe class="div-iframe" src="home.html" name="iframe_a" title="Iframe Example"></iframe>
+        </div>
+    </div>
+    <script>
+        function loadMenu() {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading menu:', error));
+        }
+
+        window.onload = function() {
+            loadMenu(); 
+        };
+    </script>
+</body>
+</html>

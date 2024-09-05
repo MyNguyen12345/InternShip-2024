@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="Css/styles.css">
+    <link rel="stylesheet" href="Css/home.css">
+
+</head>
+
+<body>
+    <div id="menu"></div>
+
+    <div class="container">
+        <div class="content" id="content">
+            <img src="Image/anh.jpeg" alt="alternatetext">
+            <div class="div-menu">
+                <ul class="menu-food">
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ul>
+            </div>
+            <div class="div-menu">
+                <dl>
+                    <dt>Coffee</dt>
+                    <dd>- black hot drink</dd>
+                    <dt>Milk</dt>
+                    <dd>- white cold drink</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadMenu() {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading menu:', error));
+        }
+
+        window.onload = function () {
+            loadMenu(); // Tải menu khi trang được tải
+        };
+    </script>
+</body>
+
+</html>
