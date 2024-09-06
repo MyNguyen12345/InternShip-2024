@@ -1,0 +1,37 @@
+# Ignore bundler config
+hello_app/.bundle
+
+# Ignore the default SQLite database
+hello_app/db/*.sqlite3
+hello_app/db/*.sqlite3-*
+
+# Ignore all logfiles and tempfiles
+hello_app/log/*
+hello_app/tmp/*
+!hello_app/log/.keep
+!hello_app/tmp/.keep
+
+# Ignore pidfiles, but keep the directory
+hello_app/tmp/pids/*
+!hello_app/tmp/pids/
+
+# Ignore uploaded files in development
+hello_app/storage/*
+!hello_app/storage/.keep
+
+# Ignore assets and node modules
+hello_app/public/assets
+hello_app/public/packs
+hello_app/public/packs-test
+hello_app/node_modules
+hello_app/yarn-error.log
+hello_app/yarn-debug.log*
+
+# Ignore the master key for decrypting credentials and more
+hello_app/config/master.key
+
+# Ignore byebug history
+hello_app/.byebug_history
+
+# Keep yarn integrity files, but ignore unnecessary logs
+hello_app/.yarn-integrity
