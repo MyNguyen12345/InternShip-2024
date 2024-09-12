@@ -1,4 +1,5 @@
 name: Project CI
+
 on:
   push:
     branches: [ main, master ]
@@ -9,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      rubocop-dir: ./sample_app
+      rubocop-dir: ./sample_app  
     steps:
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
@@ -17,10 +18,11 @@ jobs:
         ruby-version: '3.0.0'
         bundler-cache: true
     - name: Build and bundler
+      working-directory: ${{env.rubocop-dir}}  
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
         echo "Build and bundler successfully"
     - name: Check Rubocop Styles
-      working-directory: ${{env.rubocop-dir}}
+      working-directory: ${{env.rubocop-dir}}  
       run: bundle exec rubocop
