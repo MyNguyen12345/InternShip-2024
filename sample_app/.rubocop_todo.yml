@@ -347,4 +347,3 @@ Markdown:
   WarnInvalid: false
   # Whether to lint codeblocks without code attributes
   Autodetect: false
-  
