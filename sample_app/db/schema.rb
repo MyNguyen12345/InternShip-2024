@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_16_063344) do
-
-  create_table "users", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "password_digest"
-    t.string "remember_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true
+ActiveRecord::Schema.define(version: 20_240_916_063_344) do
+  create_table 'users', charset: 'utf8mb3', force: :cascade do |t|
+    t.string 'name'
+    t.string 'email'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'password_digest'
+    t.string 'remember_digest'
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
-
 end
