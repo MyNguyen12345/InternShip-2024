@@ -10,19 +10,11 @@ module SessionsHelper
   end
 
   def current_user
-    if (user_id = session[:user_id])
-      @current_user ||= User.find_by(id: user_id)
-    elsif (user_id = cookies.encrypted[:user_id])
-      user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
-        log_in user
-        @current_user = user
-      end
-    end
+    @current_user ||= find_user_from_session || find_user_from_cookies
   end
 
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def forget(user)
@@ -37,11 +29,21 @@ module SessionsHelper
     @current_user = nil
   end
 
-  def logged_in_user
-    return if logged_in?
+  private
 
-    flash[:danger] = 'Please log in.'
-    redirect_to login_url
+  def find_user_from_session
+    User.find_by(id: session[:user_id])
+  end
+
+  def find_user_from_cookies
+    user_id = cookies.encrypted[:user_id]
+    return unless user_id
+
+    user = User.find_by(id: user_id)
+    if user && user.authenticated?(cookies[:remember_token])
+      log_in(user)
+      user
+    end
   end
 
   def current_user?(user)

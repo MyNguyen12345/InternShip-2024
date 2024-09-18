@@ -42,9 +42,7 @@ class UsersController < ApplicationController
 
   def logged_in_user
     return if logged_in?
-
     store_location
-
     flash[:danger] = 'Please log in.'
     redirect_to login_url
   end
@@ -52,9 +50,12 @@ class UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
-    flash[:danger] = 'You are not authorized to access this page.'
+    unless current_user?(@user)
+      flash[:danger] = 'You are not authorized to access this page.'
+      redirect_to(root_url)
+    end
   end
+
 
   def destroy
     User.find(params[:id]).destroy

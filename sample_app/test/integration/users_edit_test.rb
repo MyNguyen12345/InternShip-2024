@@ -8,10 +8,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
-    patch user_path(@user), params: { user: { name: '',
+    patch user_path(@user), params: {user: {name: '',
                                               email: 'foo@invalid',
                                               password: 'foo',
-                                              password_confirmation: 'bar' } }
+                                              password_confirmation: 'bar'}}
     assert_template 'users/edit'
   end
   test 'successful edit with friendly forwarding' do
@@ -20,10 +20,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_url(@user)
     name = 'Foo Bar'
     email = 'foo@bar.com'
-    patch user_path(@user), params: { user: { name: name,
+    patch user_path(@user), params: {user: {name: name,
                                               email: email,
                                               password: '',
-                                              password_confirmation: '' } }
+                                              password_confirmation: ''}}
     assert_not flash.empty?
     assert_redirected_to @user
     @user.reload
