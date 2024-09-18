@@ -43,4 +43,7 @@ module SessionsHelper
     flash[:danger] = 'Please log in.'
     redirect_to login_url
   end
+  def current_user?(user)
+    user && user == current_user
+  end
 end
