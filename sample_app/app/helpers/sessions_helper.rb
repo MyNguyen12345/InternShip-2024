@@ -40,7 +40,7 @@ module SessionsHelper
     return unless user_id
 
     user = User.find_by(id: user_id)
-    if user && user.authenticated?(cookies[:remember_token])
+    if user && user.authenticated?(:remember, cookies[:remember_token])
       log_in(user)
       user
     end
