@@ -1,32 +1,32 @@
-require "test_helper"
+require 'test_helper'
 
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
   end
 
-  test "micropost interface" do
+  test 'micropost interface' do
     log_in_as(@user)
     get root_path
     assert_select 'div.pagination'
     assert_select 'input[type=file]'
     # Invalid submission
     assert_no_difference 'Micropost.count' do
-      post microposts_path, params: { micropost: { content: "" } }
+      post microposts_path, params: {micropost: {content: ''}}
     end
     assert_select 'div#error_explanation'
     assert_select 'a[href=?]', '/?page=2' # Correct pagination link
     # Valid submission
-    content = "This micropost really ties the room together"
+    content = 'This micropost really ties the room together'
     image = fixture_file_upload('test/fixtures/kitten.jpg', 'image/jpeg')
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content, image: image } }
+      post microposts_path, params: {micropost: {content: content, image: image}}
     end
-    micropost = @user.microposts.build(content: "Test post")
+    micropost = @user.microposts.build(content: 'Test post')
     micropost.image.attach(io: File.open(Rails.root.join('test', 'fixtures', 'kitten.jpg')), filename: 'kitten.jpg', content_type: 'image/jpeg')
-  
+
     assert micropost.save, "Failed to save micropost: #{micropost.errors.full_messages.join(', ')}"
-    assert micropost.image.attached?
+    assert_predicate micropost.image, :attached?
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
@@ -41,7 +41,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select 'a', text: 'delete', count: 0
   end
 
-  test "micropost sidebar count" do
+  test 'micropost sidebar count' do
     log_in_as(@user)
     get root_path
     assert_match "#{@user.microposts.count} microposts", response.body
@@ -49,9 +49,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     other_user = users(:malory)
     log_in_as(other_user)
     get root_path
-    assert_match "0 microposts", response.body
-    other_user.microposts.create!(content: "A micropost")
+    assert_match '0 microposts', response.body
+    other_user.microposts.create!(content: 'A micropost')
     get root_path
-    assert_match "1 micropost", response.body
+    assert_match '1 micropost', response.body
   end
 end
