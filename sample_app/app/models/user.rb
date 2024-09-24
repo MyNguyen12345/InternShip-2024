@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: true
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
+
   def self.digest(string)
     cost = if ActiveModel::SecurePassword.min_cost
       BCrypt::Engine::MIN_COST
@@ -55,10 +56,6 @@ class User < ApplicationRecord
   end
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
-  end
-
-  def feed
-    Micropost.where('user_id = ?', id)
   end
 
   private
