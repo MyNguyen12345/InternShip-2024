@@ -1,12 +1,11 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
-  # rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  # rescue_from ActiveRecord::RecordNotFound, :with=> :record_not_found
   def load_user
     @user = User.find_by(id: params[:id])
     @micropost = current_user.microposts.find_by(id: params[:id])
     redirect_to(root_url, flash: {danger: 'You are not authorized to access this page.'}) unless current_user?(@user) || @micropost
   end
-
 
   private
 
@@ -17,4 +16,8 @@ class ApplicationController < ActionController::Base
     flash[:danger] = 'Please log in.'
     redirect_to login_url
   end
+
+  # def record_not_found
+  #   render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  # end
 end
