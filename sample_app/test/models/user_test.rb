@@ -24,10 +24,12 @@ class UserTest < ActiveSupport::TestCase
     @user.name = 'a' * 51
     assert_not @user.valid?
   end
+
   test 'email should not be too long' do
     @user.email = 'a' * 244 + '@example.com'
     assert_not @user.valid?
   end
+
   test 'email validation should reject invalid addresses' do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
@@ -63,6 +65,7 @@ class UserTest < ActiveSupport::TestCase
   test 'authenticated? should return false for a user with nil digest' do
     assert_not @user.authenticated?(:remember, '')
   end
+
   test 'associated microposts should be destroyed' do
     @user.save
     @user.microposts.create!(content: 'Lorem ipsum')
@@ -70,6 +73,7 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
   test 'should follow and unfollow a user' do
       michael = users(:michael)
       archer = users(:archer)
